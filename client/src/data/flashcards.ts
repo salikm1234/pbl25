@@ -1,0 +1,88 @@
+import type { Flashcard } from "@shared/schema";
+
+export const flashcardsData: Flashcard[] = [
+  {
+    id: "fc-1",
+    category: "Statistics",
+    question: "How many annual users did Shein have in 2023?",
+    answer: "88.8 million annual users in 2023, representing a 103% increase from 43.7 million in 2021.",
+    order: 1,
+  },
+  {
+    id: "fc-2",
+    category: "Worker Conditions",
+    question: "What is Shein's employee-to-customer ratio in 2023?",
+    answer: "1 employee for every 8,073 customers in 2023, showing worsening ratios from 1:4,370 in 2021.",
+    order: 2,
+  },
+  {
+    id: "fc-3",
+    category: "Worker Conditions",
+    question: "What was the average salary for Shein employees in 2023?",
+    answer: "$9,972 USD annually in 2023, up from $4,050.48 in 2021, but still below living wage standards in most regions.",
+    order: 3,
+  },
+  {
+    id: "fc-4",
+    category: "Environment",
+    question: "What percentage of global carbon emissions does fashion produce?",
+    answer: "10% of global carbon emissions - more than international flights and maritime shipping combined.",
+    order: 4,
+  },
+  {
+    id: "fc-5",
+    category: "Environment",
+    question: "How much water does the fashion industry consume annually?",
+    answer: "93 billion cubic meters of water annually - enough to meet the drinking water needs of 5 million people.",
+    order: 5,
+  },
+  {
+    id: "fc-6",
+    category: "Environment",
+    question: "What happens to most textiles produced each year?",
+    answer: "85% of all textiles end up in landfills or are incinerated, with less than 1% being recycled into new garments.",
+    order: 6,
+  },
+  {
+    id: "fc-7",
+    category: "Environment",
+    question: "How do synthetic textiles impact ocean pollution?",
+    answer: "35% of ocean microplastics come from synthetic textiles that release fibers during washing of fast fashion garments.",
+    order: 7,
+  },
+  {
+    id: "fc-8",
+    category: "Policy",
+    question: "What is the Fashion Sustainability and Social Accountability Act?",
+    answer: "A legislative framework requiring fashion companies to disclose supply chains, pay living wages, reduce emissions, and establish accountability for labor violations.",
+    order: 8,
+  },
+  {
+    id: "fc-9",
+    category: "Worker Conditions",
+    question: "What is the human cost of fast fashion?",
+    answer: "Garment workers often face poverty wages (as low as $3/day), unsafe conditions, excessive hours (60-80 hours/week), and exposure to toxic chemicals.",
+    order: 9,
+  },
+  {
+    id: "fc-10",
+    category: "Statistics",
+    question: "How has Shein's workforce efficiency changed?",
+    answer: "Despite user growth of 103%, employee count only grew 10% (from 10,000 to 11,000), meaning each worker handles increasingly more customers.",
+    order: 10,
+  },
+  {
+    id: "fc-11",
+    category: "Environment",
+    question: "How many new garments are produced annually?",
+    answer: "Over 100 billion garments are produced annually - 14 items for every person on Earth, most designed to be worn fewer than 5 times.",
+    order: 11,
+  },
+  {
+    id: "fc-12",
+    category: "Policy",
+    question: "Who would the Fashion Sustainability Act apply to?",
+    answer: "Fashion companies with annual revenues exceeding $100 million, requiring impact assessments, sustainability reports, and remediation plans.",
+    order: 12,
+  },
+];

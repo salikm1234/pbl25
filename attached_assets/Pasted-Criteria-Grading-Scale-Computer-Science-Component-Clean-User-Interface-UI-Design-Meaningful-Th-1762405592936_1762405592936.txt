@@ -1,0 +1,115 @@
+Criteria	Grading Scale
+Computer Science Component
+• Clean User Interface (UI) Design
+• Meaningful Theme Integration
+4
+• Exceptionally clean and professional design with consistent visual hierarchy, thoughtful color/typography, and seamless integration of dynamic elements.
+• Content is comprehensive, data-driven, accurate, and meaningfully tied to the fast fashion theme.
+3
+• Clean, organized design with generally strong use of visual principles.
+• Dynamic content is clear with minimal distractions. Content is accurate, relevant, and supported by data that connects well to the theme.
+2
+• Some design inconsistencies, spacing/alignment issues, or visual clutter.
+• Dynamic elements may feel disconnected. Content is basic or shallow, with weak or limited use of data to support theme understanding.
+1
+• Poor visual organization with major inconsistencies and clutter. 
+• Dynamic elements are distracting or broken. Theme coverage is minimal, inaccurate, or irrelevant to user understanding.
+Integration of Core Classes (x2)
+• Subject A Integration
+• Subject B Integration
+• Cross-Disciplinary Synthesis
+4
+• Deep accuracy in both subjects.
+• Insightful transfer across domains.
+• Sophisticated synthesis elevates product.
+3
+• Accurate use of both subjects.
+• Methods applied correctly.
+• Clear synthesis improves solution.
+2
+• One subject partly accurate; other thin.
+• Limited application.
+• Minimal connections.
+1
+• Subject links vague or incorrect.
+• Misapplied facts/procedures.
+• No synthesis.
+Critical Thinking
+• Explanation/Analysis
+• Interpretation/Evidence
+• Evaluation
+4
+• Identifies inconsistencies/counterexamples.
+• Generalizes with robust evidence.
+• Detects fallacies/bias; nuanced judgments.
+3
+• Logical analysis reveals patterns/relationships.
+• Uses multiple credible sources, noting limits.
+• Evaluates credibility and strengths/weaknesses.
+2
+• Some relationships identified; limited reasoning.
+• Some evidence but quality/limits ignored.
+• Superficial evaluation; misses bias.
+1
+• Summarizes only; no deeper meaning.
+• Conclusions asserted without evidence.
+• Little/no criteria for judging claims.
+Creativity
+• Novelty & Usefulness
+• Generating & Experimenting
+• Selecting & vElaborating
+4
+• Product is novel and useful with audience impact.
+• Synthesizes/adapts ideas through prototyping.
+• Compelling, detailed rationale.
+3
+• Product is novel or useful.
+• Generates several relevant ideas and tests them.
+• Clear explanation aligned to objectives.
+2
+• Minor new features; mostly conventional.
+• Few relevant ideas; little iteration.
+• Partial grasp of objectives.
+1
+• Conventional copy; little originality. • Ideas disconnected from task.
+• Explanations unclear/off- target.
+Research & Evidence
+• Source Quality & Credibility
+• Use of Evidence & Reasoning 
+• Citation & Integrity
+4
+• Diverse, high-quality sources synthesized.
+• Evidence drives analysis; addresses limits.
+• Meticulous citations; ethical handling.
+3
+• Multiple credible sources, varied and appropriate.
+• Evidence integrated with sound reasoning.
+• Correct, consistent citations.
+2
+• Some credible sources, limited depth.
+• Evidence loosely supports claims.
+• Incomplete citations.
+1
+• Few/weak sources.
+• Quotes dropped without reasoning.
+• Missing citations.
+Collaboration & Communication
+• Teamwork & Contribution
+• Communication & Audience
+• Project Management
+4
+• Leadership elevates group.
+• Persuasive, polished multi-media communication.
+• Exemplary organization; on-time delivery.
+3
+• Equitable workload; roles used well.
+• Clear communication tailored to audience.
+• Plans/trackers used; deadlines met.
+2
+• Intermittent participation.
+• Basic clarity but inconsistent.
+• Some planning tools; timeline slips.
+1
+• Uneven workload; low accountability.
+• Unclear messages; ignores audience.
+• Missed deadlines.
