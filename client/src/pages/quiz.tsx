@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { getQuizQuestions, getUserProgress, updateUserProgress } from "@/lib/api";
-import { queryClient } from "@/lib/queryClient";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, BookOpen, Loader2 } from "lucide-react";
+import { quizQuestionsData } from "@/data/quiz";
+import { CheckCircle2, XCircle, RotateCcw, Trophy } from "lucide-react";
 
 type QuizState = "answering" | "completed";
 type AnswerState = "unanswered" | "correct" | "incorrect";
+
+interface QuizProgress {
+  quizScore: number;
+  quizAttempts: number;
+}
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -18,26 +21,23 @@ export default function Quiz() {
   const [score, setScore] = useState(0);
   const [quizState, setQuizState] = useState<QuizState>("answering");
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
+  const [progress, setProgress] = useState<QuizProgress>({ quizScore: 0, quizAttempts: 0 });
 
-  const { data: quizQuestions, isLoading } = useQuery({
-    queryKey: ["/api/quiz"],
-    queryFn: getQuizQuestions,
-  });
+  const quizQuestions = quizQuestionsData;
+  const currentQ = quizQuestions[currentQuestion];
+  const progressValue = ((currentQuestion + 1) / quizQuestions.length) * 100;
 
-  const { data: progress } = useQuery({
-    queryKey: ["/api/progress"],
-    queryFn: getUserProgress,
-  });
-
-  const updateProgressMutation = useMutation({
-    mutationFn: updateUserProgress,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/progress"] });
-    },
-  });
-
-  const currentQ = quizQuestions?.[currentQuestion];
-  const progressValue = quizQuestions ? ((currentQuestion + 1) / quizQuestions.length) * 100 : 0;
+  // Load progress from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('quiz-progress');
+    if (saved) {
+      try {
+        setProgress(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to load quiz progress:', e);
+      }
+    }
+  }, []);
 
   const handleSelectAnswer = (optionIndex: number) => {
     if (answerState !== "unanswered") return;
@@ -56,17 +56,17 @@ export default function Quiz() {
   };
 
   const handleNext = () => {
-    if (quizQuestions && currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < quizQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setAnswerState("unanswered");
     } else {
-      if (quizQuestions) {
-        updateProgressMutation.mutate({
-          quizScore: score,
-          quizAttempts: (progress?.quizAttempts || 0) + 1,
-        });
-      }
+      const newProgress = {
+        quizScore: score,
+        quizAttempts: progress.quizAttempts + 1,
+      };
+      setProgress(newProgress);
+      localStorage.setItem('quiz-progress', JSON.stringify(newProgress));
       setQuizState("completed");
     }
   };
@@ -77,19 +77,8 @@ export default function Quiz() {
     setAnswerState("unanswered");
     setScore(0);
     setQuizState("answering");
-    setAnsweredQuestions(quizQuestions ? new Array(quizQuestions.length).fill(false) : []);
+    setAnsweredQuestions(new Array(quizQuestions.length).fill(false));
   };
-
-  if (isLoading || !quizQuestions || !currentQ) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Loading quiz...</p>
-        </div>
-      </div>
-    );
-  }
 
   const categoryColors: Record<string, string> = {
     "Statistics": "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20",
@@ -209,7 +198,7 @@ export default function Quiz() {
               <span>Current Score: {score}</span>
               <span>{quizQuestions.length - currentQuestion - 1} questions remaining</span>
             </div>
-            {progress && progress.quizAttempts > 0 && (
+            {progress.quizAttempts > 0 && (
               <div className="rounded-lg bg-muted/50 p-3 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Previous Attempts:</span>

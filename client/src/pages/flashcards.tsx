@@ -1,37 +1,19 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { getFlashcards, getUserProgress, updateUserProgress } from "@/lib/api";
-import { queryClient } from "@/lib/queryClient";
-import { ChevronLeft, ChevronRight, RotateCcw, CreditCard, Loader2 } from "lucide-react";
+import { flashcardsData } from "@/data/flashcards";
+import { ChevronLeft, ChevronRight, RotateCcw, CreditCard } from "lucide-react";
 
 export default function Flashcards() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [viewedCards, setViewedCards] = useState<Set<number>>(new Set([0]));
 
-  const { data: flashcards, isLoading: flashcardsLoading } = useQuery({
-    queryKey: ["/api/flashcards"],
-    queryFn: getFlashcards,
-  });
-
-  const { data: progress } = useQuery({
-    queryKey: ["/api/progress"],
-    queryFn: getUserProgress,
-  });
-
-  const updateProgressMutation = useMutation({
-    mutationFn: updateUserProgress,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/progress"] });
-    },
-  });
-
-  const currentCard = flashcards?.[currentIndex];
-  const progressPercentage = flashcards ? (viewedCards.size / flashcards.length) * 100 : 0;
+  const flashcards = flashcardsData;
+  const currentCard = flashcards[currentIndex];
+  const progressPercentage = (viewedCards.size / flashcards.length) * 100;
 
   const categoryColors: Record<string, string> = {
     "Statistics": "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20",
@@ -40,31 +22,25 @@ export default function Flashcards() {
     "Policy": "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20",
   };
 
-  // Hydrate viewed cards from backend progress on load
+  // Load viewed cards from localStorage on mount
   useEffect(() => {
-    if (flashcards && progress?.completedFlashcardIds) {
-      const completedIndices = new Set<number>();
-      progress.completedFlashcardIds.forEach((cardId) => {
-        const index = flashcards.findIndex((card) => card.id === cardId);
-        if (index !== -1) {
-          completedIndices.add(index);
-        }
-      });
-      if (completedIndices.size > 0) {
-        setViewedCards(completedIndices);
+    const saved = localStorage.getItem('flashcards-progress');
+    if (saved) {
+      try {
+        const indices = JSON.parse(saved);
+        setViewedCards(new Set(indices));
+      } catch (e) {
+        console.error('Failed to load progress:', e);
       }
     }
-  }, [flashcards, progress]);
+  }, []);
 
-  // Save progress to backend when viewed cards change
+  // Save progress to localStorage when viewed cards change
   useEffect(() => {
-    if (flashcards && viewedCards.size > 0 && !updateProgressMutation.isPending) {
-      updateProgressMutation.mutate({
-        flashcardsCompleted: viewedCards.size,
-        completedFlashcardIds: Array.from(viewedCards).map((idx) => flashcards[idx].id),
-      });
+    if (viewedCards.size > 0) {
+      localStorage.setItem('flashcards-progress', JSON.stringify(Array.from(viewedCards)));
     }
-  }, [viewedCards.size]);
+  }, [viewedCards]);
 
   const handleNext = () => {
     if (flashcards && currentIndex < flashcards.length - 1) {
@@ -91,17 +67,6 @@ export default function Flashcards() {
     setIsFlipped(false);
     setViewedCards(new Set([0]));
   };
-
-  if (flashcardsLoading || !flashcards || !currentCard) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Loading flashcards...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen py-12">

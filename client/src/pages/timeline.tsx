@@ -1,25 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getTimelineEvents } from "@/lib/api";
-import { Clock, AlertTriangle, Loader2 } from "lucide-react";
+import { timelineEventsData } from "@/data/timeline";
+import { Clock, AlertTriangle } from "lucide-react";
 
 export default function Timeline() {
-  const { data: timelineEvents, isLoading } = useQuery({
-    queryKey: ["/api/timeline"],
-    queryFn: getTimelineEvents,
-  });
-
-  if (isLoading || !timelineEvents) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Loading timeline...</p>
-        </div>
-      </div>
-    );
-  }
+  const timelineEvents = timelineEventsData;
 
   return (
     <div className="min-h-screen py-12">
